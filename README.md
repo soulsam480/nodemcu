@@ -15,8 +15,9 @@
 
 - download binary and flash using esptool
 
-> esptool.py --port /dev/PORT --baud 460800 write_flash --flash_size=detect 0
-> ~/path/to/.bin
+```bash
+esptool.py --port /dev/PORT --baud 460800 write_flash --flash_size=detect 0 ~/path/to/.bin
+```
 
 - here change the port and binary file
 
@@ -24,6 +25,21 @@
 
 - to run directly
 
-> ampy --port /dev/PORT run path/to/.py
+```bash
+ampy --port /dev/PORT run path/to/.py
+```
 
 - see ampy docs
+
+### How to load scripts to board
+
+```bash
+ampy --port /dev/cu.wchusbserial57660205031 put micropy/lib/weather.py lib/weather.py
+```
+
+### Secrets needed to run the app
+
+- create a file inside lib/.secrets.json
+- keys
+  - weather_key
+  - twitter_key

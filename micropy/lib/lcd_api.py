@@ -4,7 +4,6 @@ import time
 
 # --- LCD API Base Class ---
 class LcdApi:
-
     def __init__(self, num_lines, num_columns):
         self.num_lines = num_lines
         self.num_columns = num_columns
@@ -51,6 +50,14 @@ class LcdApi:
 
     def putstr(self, string):
         for char in string:
+            # Handle newline characters
+            if char == "\n":
+                self.cursor_y += 1
+                if self.cursor_y >= self.num_lines:
+                    self.cursor_y = 0  # Wrap around to the top
+                self.move_to(self.cursor_y, 0)
+                continue
+
             # Check if we need to move to the next line
             if self.cursor_x >= self.num_columns:
                 self.cursor_x = 0
@@ -74,7 +81,7 @@ class LcdApi:
         if len(string) > 32:
             while last_ind < len(string):
                 self.clear()
-                self.putstr(string[last_ind:last_ind + 32])
+                self.putstr(string[last_ind : last_ind + 32])
                 last_ind += 32
                 time.sleep(2)
 

@@ -9,12 +9,12 @@ class Weather:
 
     def get_loc(self):
         # Make a GET request
-        response = requests.get("http://www.geoplugin.net/json.gp")
+        response = requests.get("http://geoapi.info/api/geo")
 
         location_data = response.json()
 
-        self.lat = location_data["geoplugin_latitude"]
-        self.lon = location_data["geoplugin_longitude"]
+        self.lat = location_data["location"]["coordinates"]["latitude"]
+        self.lon = location_data["location"]["coordinates"]["longitude"]
 
         self.lcd.clear()
         self.lcd.putstr("Fetching weather...")

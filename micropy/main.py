@@ -1,8 +1,10 @@
 from lib.lcd_api import I2cLcd
+from lib.odometer import OdoMeter
 from lib.connection import connect
 import time
 from lib.weather import Weather
-from lib.twitter import Twitter
+
+# from lib.twitter import Twitter
 
 
 class MainBoard:
@@ -17,13 +19,18 @@ class MainBoard:
         weather = Weather(self.lcd)
         weather.fetch()
 
-    def get_tweets(self):
-        twitter = Twitter(self.lcd)
-        twitter.fetch()
+    #
+    # def get_tweets(self):
+    #     twitter = Twitter(self.lcd)
+    #     twitter.fetch()
+
+    def run_odo(self):
+        odo = OdoMeter(self.lcd)
+        odo.run_forever()
 
     def run(self):
         self.get_weather()
-        self.get_tweets()
+        # self.get_tweets()
 
         time.sleep(5 * 60)
         self.run()
@@ -31,4 +38,5 @@ class MainBoard:
 
 main = MainBoard()
 
+# main.run_odo()
 main.run()
